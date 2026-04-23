@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Production SOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #0f1729;
+    --accent: #38A0FF;
+    --accent2: #AA7AFF;
+    --bg: #f7f8fb;
+    --card: #FFFFFF;
+    --text: #1a2340;
+    --muted: #7580a0;
+    --border: #e4e7ef;
+    --green: #2EC28A;
+    --blue: #38A0FF;
+    --orange: #FFB020;
+    --purple: #AA7AFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { -webkit-font-smoothing:antialiased; font-family: 'Onest', sans-serif; background: var(--bg); color: var(--text); }
+
+  .header {
+    background: linear-gradient(135deg, var(--dark), #1a2340);
+    color: white;
+    padding: 40px;
+  }
+  .header h1 { font-family: 'Onest', sans-serif; font-weight: 900; letter-spacing: -0.02em; font-size: 26px; margin-bottom: 6px; }
+  .header p { opacity: 0.6; font-size: 14px; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  .intro {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 28px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .intro strong { color: var(--text); }
+
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--blue), var(--green), var(--orange), var(--accent), var(--purple));
+    border-radius: 3px;
+  }
+
+  .step {
+    position: relative;
+    margin-left: 56px;
+    margin-bottom: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .step:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+
+  .step-dot {
+    position: absolute;
+    left: -44px;
+    top: 22px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid var(--card);
+    z-index: 1;
+  }
+  .step:nth-child(1) .step-dot { background: var(--blue); }
+  .step:nth-child(2) .step-dot { background: #2ECC71; }
+  .step:nth-child(3) .step-dot { background: var(--orange); }
+  .step:nth-child(4) .step-dot { background: var(--accent); }
+  .step:nth-child(5) .step-dot { background: var(--purple); }
+  .step:nth-child(6) .step-dot { background: var(--green); }
+
+  .step-header {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+  }
+  .step-num {
+    font-family: 'Onest', sans-serif; font-weight: 900; letter-spacing: -0.02em;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .step:nth-child(1) .step-num { background: #EBF4FF; color: #38A0FF; }
+  .step:nth-child(2) .step-num { background: #E8F8F0; color: #2EC28A; }
+  .step:nth-child(3) .step-num { background: #FFF6EB; color: #FFB020; }
+  .step:nth-child(4) .step-num { background: #FFEFF0; color: #38A0FF; }
+  .step:nth-child(5) .step-num { background: #F3EEFF; color: #AA7AFF; }
+  .step:nth-child(6) .step-num { background: #E8F8F0; color: #2EC28A; }
+
+  .step-title { font-size: 16px; font-weight: 700; flex: 1; }
+  .step-time { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .step-toggle { font-size: 16px; color: var(--muted); transition: transform 0.2s; }
+
+  .step-body { -webkit-font-smoothing:antialiased; padding: 0 20px 20px; }
+  .step.collapsed .step-body { -webkit-font-smoothing:antialiased; display: none; }
+  .step.collapsed .step-toggle { transform: rotate(-90deg); }
+
+  .sub-step {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .sub-step:last-child { border-bottom: none; }
+  .sub-step-who {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    height: fit-content;
+    margin-top: 2px;
+  }
+  .who-strat { background: #EBF4FF; color: #38A0FF; }
+  .who-creative { background: #FFEFF0; color: #38A0FF; }
+  .who-media { background: #FFF6EB; color: #FFB020; }
+  .who-lead { background: #F3EEFF; color: #AA7AFF; }
+  .who-all { background: #E8F8F0; color: #2EC28A; }
+  
+  .sub-step-content { flex: 1; }
+  .sub-step-content strong { display: block; margin-bottom: 2px; }
+  .sub-step-content small { color: var(--muted); }
+
+  .naming-box {
+    background: var(--dark);
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 16px 0;
+    font-family: 'Onest', sans-serif; font-weight: 900; letter-spacing: -0.02em;
+    font-size: 13px;
+    line-height: 2;
+  }
+  .naming-box .highlight { color: var(--accent); }
+  .naming-box .dim { opacity: 0.5; }
+
+  .role-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .role-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .role-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+  .warning {
+    background: #FFF6EB;
+    border-left: 3px solid #FFB020;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #7A6A3A;
+    margin: 12px 0;
+  }
+
+  @media (max-width: 640px) {
+    .header { padding: 28px 20px; }
+    .timeline::before { left: 16px; }
+    .step { margin-left: 40px; }
+    .step-dot { left: -32px; width: 16px; height: 16px; }
+  }
+  @media print {
+    .step { break-inside: avoid; }
+    .step.collapsed .step-body { -webkit-font-smoothing:antialiased; display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div style="font-weight:900;font-size:16px;opacity:.35;margin-bottom:16px">magic</div><h1>CREATIVE PRODUCTION SOP</h1>
+  <p>Стандартна операційна процедура виробництва креативів для e-commerce</p>
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    Цей SOP описує повний цикл виробництва креативу: <strong>від запиту до аналізу результатів</strong>. Кожен крок має відповідального, дедлайн і чіткий вихідний продукт. Дотримуйтесь послідовності — це забезпечує якість і швидкість.
+  </div>
+
+  <div class="role-legend">
+    <div class="role-badge"><div class="role-dot" style="background:#1565C0"></div>Стратег</div>
+    <div class="role-badge"><div class="role-dot" style="background:#C62828"></div>Креативник</div>
+    <div class="role-badge"><div class="role-dot" style="background:#E65100"></div>Медіабаєр</div>
+    <div class="role-badge"><div class="role-dot" style="background:#6A1B9A"></div>Тімлід</div>
+    <div class="role-badge"><div class="role-dot" style="background:#2E7D32"></div>Вся команда</div>
+  </div>
+
+  <div class="timeline">
+
+    <!-- STEP 1 -->
+    <div class="step" id="step1">
+      <div class="step-dot"></div>
+      <div class="step-header" onclick="toggleStep('step1')">
+        <span class="step-num">КРОК 1</span>
+        <span class="step-title">Аналіз і гіпотеза</span>
+        <span class="step-time">День 1</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <span class="sub-step-who who-strat">Стратег</span>
+          <div class="sub-step-content">
+            <strong>Аналіз поточних результатів</strong>
+            <small>Перегляд Тижневого звіту: які креативи працюють, які ні. Визначення gaps.</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-strat">Стратег</span>
+          <div class="sub-step-content">
+            <strong>Формулювання гіпотези</strong>
+            <small>"Якщо [змінимо X], то [метрика Y] покращиться, тому що [причина]"</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-media">Медіабаєр</span>
+          <div class="sub-step-content">
+            <strong>Валідація гіпотези даними</strong>
+            <small>Підтвердження з кабінету: чи є достатньо даних для висновку? Чи коректний бенчмарк?</small>
+          </div>
+        </div>
+        <div class="warning">Вихідний продукт: Заповнена секція "Ціль і контекст" у Креативному брифі</div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+      <div class="step-dot"></div>
+      <div class="step-header" onclick="toggleStep('step2')">
+        <span class="step-num">КРОК 2</span>
+        <span class="step-title">Креативний бриф</span>
+        <span class="step-time">День 1-2</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <span class="sub-step-who who-strat">Стратег</span>
+          <div class="sub-step-content">
+            <strong>Заповнення Креативного брифу</strong>
+            <small>Усі 6 секцій: ціль, ЦА, продукт, стратегія (кут + концепт + хук + CTA), платформа, референси.</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-lead">Тімлід</span>
+          <div class="sub-step-content">
+            <strong>Ревью брифу</strong>
+            <small>Перевірка: чи бриф чіткий? Чи зрозуміло що робити? Чи відповідає стратегії клієнта?</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-creative">Креативник</span>
+          <div class="sub-step-content">
+            <strong>Питання та уточнення</strong>
+            <small>Креативник може задати питання ДО початку роботи — це нормально і правильно.</small>
+          </div>
+        </div>
+        <div class="warning">Вихідний продукт: Затверджений креативний бриф → передається у виробництво. Перевірити за Checklist: Бриф (документ 10).</div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+      <div class="step-dot"></div>
+      <div class="step-header" onclick="toggleStep('step3')">
+        <span class="step-num">КРОК 3</span>
+        <span class="step-title">Виробництво</span>
+        <span class="step-time">День 2-4</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <span class="sub-step-who who-creative">Креативник</span>
+          <div class="sub-step-content">
+            <strong>Створення креативу за брифом</strong>
+            <small>Дотримуватись кута, концепту, хуку з брифу. Не імпровізувати без погодження.</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-creative">Креативник</span>
+          <div class="sub-step-content">
+            <strong>Створення варіацій (якщо в брифі)</strong>
+            <small>Зазвичай 2-3 варіації: різні хуки або CTA при однаковому кутові.</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-creative">Креативник</span>
+          <div class="sub-step-content">
+            <strong>Нейменг файлів за конвенцією</strong>
+            <small>Дивіться конвенцію нижче ↓</small>
+          </div>
+        </div>
+
+        <div class="naming-box">
+          <div><span class="dim">Формат:</span></div>
+          <div><span class="highlight">[YYYYMMDD]</span>_<span class="highlight">[Платформа]</span>_<span class="highlight">[Кут]</span>_<span class="highlight">[Концепт]</span>_<span class="highlight">[Версія]</span></div>
+          <div style="margin-top:12px"><span class="dim">Приклад:</span></div>
+          <div>20260422_META_PainPoint_TalkingHead_v1</div>
+          <div>20260422_TT_UGC_POV_v2</div>
+          <div>20260422_META_Offer_Static_v1</div>
+        </div>
+        <div class="warning">Вихідний продукт: Готові файли креативів у правильному форматі з правильним неймінгом. Перевірити за Checklist: Pre-launch (документ 10).</div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step" id="step4">
+      <div class="step-dot"></div>
+      <div class="step-header" onclick="toggleStep('step4')">
+        <span class="step-num">КРОК 4</span>
+        <span class="step-title">Ревью і погодження</span>
+        <span class="step-time">День 4-5</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <span class="sub-step-who who-lead">Тімлід</span>
+          <div class="sub-step-content">
+            <strong>Перевірка за чеклістом</strong>
+            <small>Пройти Checklist: Pre-launch (документ 10). Технічна перевірка, compliance, message match.</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-media">Медіабаєр</span>
+          <div class="sub-step-content">
+            <strong>Перевірка compliance</strong>
+            <small>Чи відповідає рекламній політиці Meta / TikTok? Чи немає заборонених claims?</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-strat">Стратег</span>
+          <div class="sub-step-content">
+            <strong>Фінальне затвердження</strong>
+            <small>Чи відповідає креатив стратегії та гіпотезі з брифу?</small>
+          </div>
+        </div>
+        <div class="warning">Максимум 2 раунди правок. Якщо більше — проблема в брифі, не в креативнику.</div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step" id="step5">
+      <div class="step-dot"></div>
+      <div class="step-header" onclick="toggleStep('step5')">
+        <span class="step-num">КРОК 5</span>
+        <span class="step-title">Запуск і тестування</span>
+        <span class="step-time">День 5</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <span class="sub-step-who who-media">Медіабаєр</span>
+          <div class="sub-step-content">
+            <strong>Налаштування тесту за Протоколом</strong>
+            <small>Створення кампанії/Ad Set за правилами з документа "Протокол тестування".</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-media">Медіабаєр</span>
+          <div class="sub-step-content">
+            <strong>Запуск і першний моніторинг</strong>
+            <small>Перевірка через 4-6 годин: чи все працює коректно, чи немає помилок модерації.</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-media">Медіабаєр</span>
+          <div class="sub-step-content">
+            <strong>Фіксація в Трекері тестів</strong>
+            <small>Записати в таблицю: гіпотеза, контроль, тест, дата старту.</small>
+          </div>
+        </div>
+        <div class="warning">Вихідний продукт: Запущений тест + рядок в Трекері тестів. Перевірити за Checklist: Post-launch (документ 10).</div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step" id="step6">
+      <div class="step-dot"></div>
+      <div class="step-header" onclick="toggleStep('step6')">
+        <span class="step-num">КРОК 6</span>
+        <span class="step-title">Аналіз і наступні кроки</span>
+        <span class="step-time">День 8-10</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <span class="sub-step-who who-media">Медіабаєр</span>
+          <div class="sub-step-content">
+            <strong>Збір даних в Тижневий звіт</strong>
+            <small>Внести всі метрики в таблицю Тижневого звіту. Заповнити Скоркард.</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-strat">Стратег</span>
+          <div class="sub-step-content">
+            <strong>Заповнення "Аналіз & Дії"</strong>
+            <small>Що спрацювало? Чому? Що не спрацювало? Чому? Що робити далі?</small>
+          </div>
+        </div>
+        <div class="sub-step">
+          <span class="sub-step-who who-all">Команда</span>
+          <div class="sub-step-content">
+            <strong>Тижнева планерка по креативах (15 хв)</strong>
+            <small>Огляд результатів → нові гіпотези → нові брифи → цикл починається знову.</small>
+          </div>
+        </div>
+        <div class="warning">Цикл повторюється щотижня. Кожен тиждень = нова ітерація. Кожна ітерація = краще розуміння аудиторії.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleStep(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+</script>
+
+<div style="text-align:center;padding:32px 0 16px;font-size:12px;color:#7580a0;font-weight:300"><span style="font-weight:900;background:linear-gradient(135deg,#38A0FF,#AA7AFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent">magic</span><div style="margin-top:4px">advertise for e-commerce</div></div>
+</body>
+</html>
